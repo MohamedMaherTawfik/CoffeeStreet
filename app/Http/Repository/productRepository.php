@@ -9,7 +9,7 @@ class ProductRepository implements ProductInteface
 {
     public function index()
     {
-        return Products::all();
+        return Products::paginate(5);
     }
 
     public function store($data)
