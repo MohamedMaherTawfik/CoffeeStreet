@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\api\auth;
 
 use App\Http\Requests\userRequest;
+use App\Interfaces\cartInterface;
+use App\Models\cart;
 use App\Models\User;
+use App\services\CartServices;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
@@ -11,6 +14,8 @@ use Illuminate\Support\Facades\Auth;
 class AuthController
 {
     use apiResponse;
+    private $cartRepository;
+
 
     public function register(userRequest $request)
     {
@@ -21,6 +26,9 @@ class AuthController
         if (!$user) {
             return $this->sendError('Register Failed');
         }
+        cart::create([
+            'user_id'=>$user->id
+        ]);
         return $this->apiResponse($user, 'Register Successfully');
     }
 

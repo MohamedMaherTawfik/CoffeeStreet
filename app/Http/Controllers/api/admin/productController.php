@@ -35,7 +35,6 @@ class productController extends Controller
 
     public function store(productRequest $request) {
         $data = $request->validated();
-        // dd($data);
         $image = $request->file('image');
         $imageName = time() . '.' . $image->getClientOriginalExtension();
         $image->move(public_path('products'), $imageName);
